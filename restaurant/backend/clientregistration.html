@@ -1,0 +1,88 @@
+<html>
+    <link href="../includes/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../includes/bootstrap.min.js">
+        </script>
+        <script src="../includes/jquery.js">  
+        </script>
+<body class="bg-warning">
+     <!--navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Restaurant</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="clientregistration.html">Register</a>
+          <a class="nav-link" href="adminlogin.html">Admin Login</a>
+          <a class="nav-link" href="clientlogin.html" tabindex="-1" aria-disabled="false">Client Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!--end of navigation-->
+  <div class="container">
+    <h3 class="pt-5 fw-light w-50 mx-auto">Delicious Restaurant Client Registration</h3>
+    <form class="w-50 mx-auto mt-5 bg-danger p-5 rounded-3">
+        <p class="text-white"id="feedback"></p>
+        <select class="form-control" id="role">
+            <option value="client">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="client">Client</option>
+        </select>
+        <input 
+        class="form-control mt-3 mb-3" 
+        type="email"
+        placeholder="Enter your email"
+        id="email"
+        >
+        <input 
+        class="form-control mt-3 mb-3" 
+        type="number"
+        placeholder="Enter your phone number"
+        id="phonenumber"
+        >
+        
+        <input 
+        class="form-control mt-3 mb-3" 
+        type="password"
+        placeholder="Enter your password"
+        id="password"
+        >
+        
+        <button class="btn btn-success"id="client_register">register</button>
+    </form>
+  </div>
+    <script>
+        $(document).ready(function(){
+          
+         $('#client_register').on('click',function(){
+            event.preventDefault();//stop browser refreshing
+            let password = $('#password').val();//inpu
+             let email = $('#email').val(); 
+             let role = $("#role").val();
+             let phone_number = $('#phonenumber').val();
+             //store into localstorage
+             if(role=="admin"){
+               localStorage.setItem("admin_email",email);
+               localStorage.setItem("admin_password",password);
+               localStorage.setItem('admin_phonenumber',phone_number); 
+             }else{
+                localStorage.setItem("client_email",email);
+                localStorage.setItem("client_password",password);
+                localStorage.setItem('client_phonenumber',phone_number);
+             }
+             
+             //
+            // alert(localStorage.getItem("email"));
+
+             // $('#feedback').text(`Your password is ${password} and email is ${email}`);
+         });
+
+        });
+    </script>
+</body>
+  
+</html>

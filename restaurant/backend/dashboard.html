@@ -1,0 +1,206 @@
+<html>
+    <link href="../includes/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../includes/bootstrap.min.js">
+        </script>
+        <script src="../includes/jquery.js">  
+        </script>
+<body class="bg-warning">
+    <!--navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Restaurant</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="clientregistration.html">Register</a>
+          <a class="nav-link" href="adminlogin.html">Admin Login</a>
+          <a class="nav-link" href="clientlogin.html" tabindex="-1" aria-disabled="false">Client Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!--end of navigation-->
+<h1> Welcome to dashbaord</h1>
+  <!--end of navigation-->
+  <div class="container">
+    <div class="row justify-content-between m-5">
+        <div class="col-md-5 border shadow">
+           <form>
+          <legend>Add Menu Item</legend>
+         <select name="product" class="form-control mt-3 mb-3"id="product">
+          <option>Select product</option>
+         
+        </select>
+          <input 
+          type="number"
+          class="form-control mt-3 mb-3"
+          placeholder="quantity"
+          id="quantity"
+          >
+
+          <button class="btn btn-danger"id="calc_amount">Calculate amount</button>
+          <div id="second_form">
+            <label class="fs-4 p-1 bg-success text-light mt-3 rounded">Bill (USD)</label>
+          <input 
+          type="text"
+          class="form-control mb-3 disabled bg-outline-danger fs-3"
+          disabled
+          placeholder="amount"
+          id="amount"
+          >
+          <input 
+          type="number"
+          class="form-control mt-3 mb-3"
+          placeholder="card_details"
+          id="card_details"
+          >
+          <input 
+          type="address"
+          class="form-control mt-3 mb-3"
+          placeholder="address"
+          id="address"
+          >
+        </div><!--endof second form-->
+          <button class="btn btn-success"id="checkout">Checkout</button>
+           </form>
+        </div>
+        <div class="col-md-5 shadow bg-danger">
+            <h3 class="text-light fw-light">Our Menu </h3>
+            <div id="menu" class='p-3'>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+         $(document).ready(function(){ 
+
+          //load menu 
+           //utility variables
+           let menu_items = [];
+          let display_menu = JSON.parse(localStorage.getItem('menu_items'));
+            //loop
+          for(item of display_menu){
+            $("#menu").append(`
+            <hr>
+            <div class='card inf-card p-2'>
+              <p class='lead'> Name : ${item.name}</p>
+              <p  class='lead'> Description : ${item.description}</p>
+              <p class='lead'> Price : ${item.price}</p>
+              </div>
+            `);
+
+          }
+          //utilities 
+          let transactions = [];
+        $("#second_form").hide();
+        $("#calc_amount").on('click',function(){
+          event.preventDefault();
+          let item_name = $("#product").val();
+          let quantity = $("#quantity").val();
+          let unit_price = 0;
+          let display_menu = JSON.parse(localStorage.getItem('menu_items'));
+            //loop
+          for(item of display_menu){
+            if(item.name==item_name){
+              unit_price = item.price;
+            }//if
+          }//for
+           let amount = unit_price * quantity;
+          $("#amount").val(`${amount}`);
+          $("#second_form").show(3000);
+        })//endof calc amount
+
+           menu_items = [];
+          display_menu = JSON.parse(localStorage.getItem('menu_items'));
+            //loop
+          for(item of display_menu){
+            $("#product").append(`
+              <option>${item.name}</option>
+            `);
+
+          } 
+          $('#checkout').on('click',function(){
+            event.preventDefault(); 
+            //collect transaction data 
+            //product
+            let product = $("#product").val();
+            //quantity
+            let quantity = $("#quantity").val();
+            //amount
+            let amount = $("#amount").val();
+            //card_details
+            let card_details = $("#card_details").val();
+            //address
+            let address = $("#address").val();
+            //push to object
+           let transaction = {
+                 product:product,
+                 quantity:quantity,
+                 amount:amount,
+                 card_details:card_details,
+                 address:address
+
+            } 
+
+            confirm("Are you sure  you want to make the transfer ?");
+            //
+            //localstorage 
+            if(localStorage.getItem('transactions')){
+              transactions = JSON.parse(localStorage.getItem('transactions'));
+              //append object to array
+              transactions.push(transaction);
+              //to storage 
+              localStorage.setItem('transactions', JSON.stringify(transactions));
+                  
+            }else{
+            transactions.push(transaction);
+              localStorage.setItem('transactions', JSON.stringify(transactions));
+            }
+          });//endof checkout
+
+
+         $('#add').on('click',function(){
+
+
+            event.preventDefault();//stop browser refreshing
+            let name = $('#name').val();//inpu
+             let description = $('#description').val(); 
+             let price = $('#price').val(); 
+            //send to db 
+            let menu = {
+              name:name,
+              description:description,
+              price:price
+            };
+            if(localStorage.getItem('menu_items')){
+              menu_items = JSON.parse(localStorage.getItem('menu_items'));
+              //append
+              menu_items.push(menu);
+              //to storage 
+              localStorage.setItem('menu_items', JSON.stringify(menu_items));
+                  
+            }else{
+              menu_items.push(menu);
+              localStorage.setItem('menu_items', JSON.stringify(menu_items));
+            }
+            
+
+
+//localStorage.setItem('menu_items', JSON.stringify(arr));
+
+            //localStorage.setItem('item_name',name);
+            //localStorage.setItem('item_description',description);
+            //localStorage.setItem('item_price',price);
+        
+            
+         });
+
+        });
+    </script>
+</body>
+  
+</html>

