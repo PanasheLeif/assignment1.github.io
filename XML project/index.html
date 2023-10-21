@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get User Details</title>
+</head>
+<body>
+  <input type="text" id="userID" placeholder="Enter User ID">
+  <button onclick="getUserDetails()">Get User Details</button>
+  <div id="userDetails"></div>
+
+  <script>
+    function getUserDetails() {
+      const userID = document.getElementById('userID').value;
+
+      // Create an AJAX request to fetch the XML file
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'users.xml');
+      xhr.responseType = 'document';
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const xmlDoc = xhr.responseXML;
+          const user = findUser(xmlDoc, userID);
+          if (user) {
+            displayUserDetails(user);
+          } else {
+            alert('User not found');
+          }
+        } else {
+          alert('Error loading XML file');
+        }
+      };
+      xhr.send();
+    }
+
+    function findUser(xmlDoc, userID) {
+      const users = xmlDoc.getElementsByTagName('user');
+      for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        if (user.getAttribute('id') === userID) {
+          return user;
+        }
+      }
+      return null;
+    }
+
+    function displayUserDetails(user) {
+      const userDetails = document.getElementById('userDetails');
+      userDetails.innerHTML = `
+        <p>Name: ${user.getElementsByTagName('name')[0].textContent}</p>
+        <p>Email: ${user.getElementsByTagName('email')[0].textContent}</p>
+        <p>Age: ${user.getElementsByTagName('age')[0].textContent}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
