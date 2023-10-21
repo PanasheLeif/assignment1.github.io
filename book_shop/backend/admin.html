@@ -1,0 +1,117 @@
+<html>
+    <link href="../includes/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../includes/bootstrap.min.js">
+        </script>
+        <script src="../includes/jquery.js">  
+        </script>
+<body class="bg-warning">
+    <!--navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">PANASHE'S BOOKSTORE</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="clientregistration.html">Register</a>
+          <a class="nav-link" href="adminlogin.html">Admin Login</a>
+          <a class="nav-link" href="clientlogin.html" tabindex="-1" aria-disabled="false">Client Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!--end of navigation-->
+<div class="container">
+    <div class="row justify-content-between m-5">
+        <div class="col-md-5 border shadow">
+           <form>
+          <legend>Add book</legend>
+          <input 
+          type="text"
+          class="form-control mt-3 mb-3"
+          placeholder="Name of Item"
+          id="name"
+          >
+          <input 
+          type="text"
+          class="form-control mt-3 mb-3"
+          placeholder="description of Item"
+          id="description"
+          >
+          <input 
+          type="number"
+          class="form-control mt-3 mb-3"
+          placeholder="Price of Item"
+          id="price"
+          >
+          <button class="btn btn-success"id="add">Submit</button>
+           </form>
+        </div>
+        <div class="col-md-5 shadow bg-danger">
+            <h3 class="text-light fw-light">Our Books </h3>
+            <div id="menu" class='p-3'>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        $(document).ready(function(){ 
+          //utility variables
+          let menu_items = [];
+          let display_menu = JSON.parse(localStorage.getItem('menu_items'));
+            //loop
+          for(item of display_menu){
+            $("#menu").append(`
+            <hr>
+            <div class='card inf-card p-2'>
+              <p class='lead'> Name : ${item.name}</p>
+              <p  class='lead'> Description : ${item.description}</p>
+              <p class='lead'> Price : ${item.price}</p>
+              </div>
+            `);
+
+          }
+         $('#add').on('click',function(){
+
+
+            event.preventDefault();//stop browser refreshing
+            let name = $('#name').val();//inpu
+             let description = $('#description').val(); 
+             let price = $('#price').val(); 
+            //send to db 
+            let menu = {
+              name:name,
+              description:description,
+              price:price
+            };
+            if(localStorage.getItem('menu_items')){
+              menu_items = JSON.parse(localStorage.getItem('menu_items'));
+              //append
+              menu_items.push(menu);
+              //to storage 
+              localStorage.setItem('menu_items', JSON.stringify(menu_items));
+                  
+            }else{
+              menu_items.push(menu);
+              localStorage.setItem('menu_items', JSON.stringify(menu_items));
+            }
+            
+
+
+//localStorage.setItem('menu_items', JSON.stringify(arr));
+
+            //localStorage.setItem('item_name',name);
+            //localStorage.setItem('item_description',description);
+            //localStorage.setItem('item_price',price);
+        
+            
+         });
+
+        });
+    </script>
+</body>
+  
+</html>

@@ -1,0 +1,69 @@
+<html>
+    <link href="../includes/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../includes/bootstrap.min.js">
+        </script>
+        <script src="../includes/jquery.js">  
+        </script>
+<body class="bg-warning">
+  <!--navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Panashe's bookstore</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="clientregistration.html">Register</a>
+          <a class="nav-link" href="adminlogin.html">Admin Login</a>
+          <a class="nav-link" href="clientlogin.html" tabindex="-1" aria-disabled="false">Client Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!--end of navigation-->
+  <div class="container">
+    <h3 class="pt-5 fw-light w-50 mx-auto">Panashe's Bookstore Login</h3>
+    <form class="w-50 mx-auto mt-5 bg-danger p-5 rounded-3">
+        <p class="text-white"id="feedback"></p>
+        <input 
+        class="form-control mt-3 mb-3" 
+        type="email"
+        placeholder="Enter your email"
+        id="email"
+        >
+        <input 
+        class="form-control mt-3 mb-3" 
+        type="password"
+        placeholder="Enter your password"
+        id="password"
+        >
+        <button class="btn btn-success"id="client_login">Login</button>
+    </form>
+  </div>
+    <script>
+        $(document).ready(function(){
+         $('#client_login').on('click',function(){
+            event.preventDefault();//stop browser refreshing
+            let password = $('#password').val();//inpu
+             let email = $('#email').val(); 
+            let storedEmail =  localStorage.getItem("client_email",email);
+             let storedPassword = localStorage.getItem("client_password",password);
+             if(storedEmail==email && storedPassword==password){
+              $('#feedback').text(`Your login was successfull`);
+              //next page 
+              location.href = "dashboard.html";
+
+             }
+             else{
+              $('#feedback').html(`<span class='text-light'>Your login was not successfull</span>`);
+             }
+            
+         });
+
+        });
+    </script>
+</body>
+  
+</html>
